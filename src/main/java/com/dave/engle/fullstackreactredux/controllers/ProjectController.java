@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/project")
@@ -34,5 +35,10 @@ public class ProjectController {
     public ResponseEntity<?> getProjectByIdentifier(@PathVariable String projectIdentifier){
         Project project = projectService.findProjectByIdentifier(projectIdentifier.toUpperCase());
         return new ResponseEntity<Project>(project, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public List<Project> getAllProjects(){
+        return projectService.findAll();
     }
 }

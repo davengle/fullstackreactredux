@@ -6,6 +6,8 @@ import com.dave.engle.fullstackreactredux.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectService {
 
@@ -27,5 +29,9 @@ public class ProjectService {
         if(project == null)
             throw new ProjectIdentifierException("Project " + projectIdentifier.toUpperCase() + " does not exist");
         return project;
+    }
+
+    public List<Project> findAll(){
+        return projectRepository.findAll();
     }
 }
