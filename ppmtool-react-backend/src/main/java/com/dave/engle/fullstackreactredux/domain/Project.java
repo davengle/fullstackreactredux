@@ -34,6 +34,7 @@ public class Project {
     private LocalDate startDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+    @Column(updatable = false)
     private LocalDateTime created_At;
     private LocalDateTime updated_At;
 
