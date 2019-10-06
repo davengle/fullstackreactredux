@@ -2,9 +2,7 @@ package com.dave.engle.fullstackreactredux.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
@@ -25,9 +23,9 @@ public class Project {
 
     @NotBlank(message = "Project name is required")
     private String projectName;
+    @Setter(AccessLevel.NONE)
     @NotBlank(message = "Project identifier is required")
     @Size(min=4, max=5, message = "Please use 4 to 5 characters")
-    //TODO work on ways to test unique and updatable constraints
     @Column(updatable = false, unique = true)
     private String projectIdentifier;
     @NotBlank(message = "Project description is required")
@@ -41,6 +39,10 @@ public class Project {
 
 
     public Project() {
+    }
+
+    public void setProjectIdentifier(String projectIdentifier) {
+        this.projectIdentifier = projectIdentifier.toUpperCase();
     }
 
     @PrePersist
