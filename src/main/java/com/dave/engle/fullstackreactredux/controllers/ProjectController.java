@@ -2,6 +2,7 @@ package com.dave.engle.fullstackreactredux.controllers;
 
 import com.dave.engle.fullstackreactredux.domain.Project;
 import com.dave.engle.fullstackreactredux.services.ProjectService;
+import com.dave.engle.fullstackreactredux.services.ValidationErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +25,14 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private ValidationErrorService validationErrorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
-        if(result.hasErrors()){
-            Map<String, String> errorMap = new HashMap<>();
 
-            for(FieldError error: result.getFieldErrors()){
-                errorMap.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
-        }
+        if (result.hasErrors()) return validationErrorService.mapValidationErrors(result);
+
         Project savedProject = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(savedProject, HttpStatus.CREATED);
     }

@@ -27,13 +27,14 @@ public class Project {
     private String projectName;
     @NotBlank(message = "Project identifier is required")
     @Size(min=4, max=5, message = "Please use 4 to 5 characters")
+    //TODO work on ways to test unique and updatable constraints
     @Column(updatable = false, unique = true)
     private String projectIdentifier;
     @NotBlank(message = "Project description is required")
     private String description;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private LocalDateTime created_At;
     private LocalDateTime updated_At;
