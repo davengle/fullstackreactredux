@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
